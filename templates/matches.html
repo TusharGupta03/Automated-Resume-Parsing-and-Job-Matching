@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Matches</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            overflow: hidden;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff8c00, #e52e71);
+            animation: gradientMove 5s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background: linear-gradient(135deg, #ff8c00, #e52e71);
+            }
+
+            50% {
+                background: linear-gradient(135deg, #e52e71, #ff8c00);
+            }
+
+            100% {
+                background: linear-gradient(135deg, #ff8c00, #e52e71);
+            }
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2.5rem;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        li {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+            width: calc(33.333% - 20px);
+            max-width: 400px;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #34495e;
+        }
+
+        @media (max-width: 768px) {
+            li {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            li {
+                width: 100%;
+            }
+        }
+
+        .back-link {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            margin: 20px auto;
+            display: block;
+            width: fit-content;
+        }
+
+        .back-link:hover {
+            background-color: #2980b9;
+        }
+
+        .back-button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .loader {
+            display: none;
+            margin: 20px auto;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #e52e71;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Job Matches</h1>
+    
+    <ul class="job-list">
+        {% for match in matches %}
+        <li class="job-item">
+            <h2>{{ match.job.jobTitle }}</h2>
+            <p><strong>Job Designation:</strong> {{ match.job.jobTitle }}</p>
+            <p><strong>Description:</strong> {{ match.job.jobDescription | safe }}</p>
+            <p style="text-transform: capitalize;"><strong>Location:</strong> {{ match.job.location | safe }}</p>
+            <p class="score">Match Score: {{ match.score }}</p>
+            {% if match.job.companyLogo %}
+            <img src="{{ match.job.companyLogo }}" alt="{{ match.job.companyName }} Logo" class="company-logo">
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="back-button-container">
+        <a href="/" class="back-link">Go Back</a>
+    </div>
+
+</body>
+
+</html>

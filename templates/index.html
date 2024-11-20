@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Matching Application</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff8c00, #e52e71);
+            animation: gradientMove 5s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background: linear-gradient(135deg, #ff8c00, #e52e71);
+            }
+
+            50% {
+                background: linear-gradient(135deg, #e52e71, #ff8c00);
+            }
+
+            100% {
+                background: linear-gradient(135deg, #ff8c00, #e52e71);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            transform: scale(0.9);
+            animation: scaleUp 0.7s ease-out forwards;
+        }
+
+        @keyframes scaleUp {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        textarea,
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        textarea:focus,
+        input[type="text"]:focus {
+            border-color: #ff8c00;
+            outline: none;
+            animation: wiggle 0.3s ease;
+        }
+
+        @keyframes wiggle {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
+
+            75% {
+                transform: translateX(-5px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #e52e71;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #ff8c00;
+            transform: scale(1.05);
+        }
+
+        .loader {
+            display: none;
+            margin-top: 15px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #e52e71;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container fade-in">
+        <h1>Job Matching Application</h1>
+        <form id="jobForm" action="/match_jobs" method="POST">
+            <div class="form-group">
+                <textarea name="resume" placeholder="Paste your resume here" required></textarea>
+            </div>
+            <div class="form-group">
+                <input type="text" name="location" placeholder="Location" required>
+            </div>
+            <button type="submit">Match Jobs</button>
+        </form>
+
+        <div class="loader" id="loader"></div>
+
+        <div class="footer">
+            <p>Powered by Your Company</p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('jobForm');
+        const loader = document.getElementById('loader');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            loader.style.display = 'block';
+            form.querySelector('button').style.display = 'none';
+
+
+            form.submit();
+        })
+    </script>
+</body>
+
+</html>
